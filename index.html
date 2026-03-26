@@ -40,10 +40,17 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-search">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <input type="text" class="mobile-search-input" placeholder="搜索姿势..." id="mobileSearchInput" oninput="handleMobileSearch(this.value)">
+        </div>
         <a href="#" class="mobile-nav-link" data-page="home" onclick="navigate('home'); toggleMobileMenu()">首页</a>
-        <a href="#" class="mobile-nav-link" data-page="upload" onclick="navigate('upload'); toggleMobileMenu()">上传</a>
-        <a href="#" class="mobile-nav-link" data-page="favorites" onclick="navigate('favorites'); toggleMobileMenu()">收藏</a>
-        <a href="#" class="mobile-nav-link" data-page="recommend" onclick="navigate('recommend'); toggleMobileMenu()">推荐</a>
+        <a href="#" class="mobile-nav-link" data-page="upload" onclick="navigate('upload'); toggleMobileMenu()">上传姿势</a>
+        <a href="#" class="mobile-nav-link" data-page="favorites" onclick="navigate('favorites'); toggleMobileMenu()">我的收藏</a>
+        <a href="#" class="mobile-nav-link" data-page="recommend" onclick="navigate('recommend'); toggleMobileMenu()">热门推荐</a>
     </div>
 
     <!-- Main Content -->

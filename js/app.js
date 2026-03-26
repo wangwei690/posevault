@@ -314,6 +314,13 @@ function handleSearch(value) {
     renderHome();
 }
 
+// Mobile Search
+function handleMobileSearch(value) {
+    currentSearch = value;
+    navigate('home');
+    renderHome();
+}
+
 // Favorites
 function toggleFavorite(id) {
     const index = favorites.indexOf(id);
