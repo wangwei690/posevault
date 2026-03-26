@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoseVault - 拍照姿势库</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo" onclick="navigate('home')">
+                <span class="logo-icon">✦</span>
+                PoseVault
+            </a>
+            <nav class="nav">
+                <a href="#" class="nav-link active" data-page="home" onclick="navigate('home')">首页</a>
+                <a href="#" class="nav-link" data-page="upload" onclick="navigate('upload')">上传</a>
+                <a href="#" class="nav-link" data-page="favorites" onclick="navigate('favorites')">收藏</a>
+                <a href="#" class="nav-link" data-page="recommend" onclick="navigate('recommend')">推荐</a>
+            </nav>
+            <div class="search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input type="text" class="search-input" placeholder="搜索姿势..." id="searchInput" oninput="handleSearch(this.value)">
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#" class="mobile-nav-link" data-page="home" onclick="navigate('home'); toggleMobileMenu()">首页</a>
+        <a href="#" class="mobile-nav-link" data-page="upload" onclick="navigate('upload'); toggleMobileMenu()">上传</a>
+        <a href="#" class="mobile-nav-link" data-page="favorites" onclick="navigate('favorites'); toggleMobileMenu()">收藏</a>
+        <a href="#" class="mobile-nav-link" data-page="recommend" onclick="navigate('recommend'); toggleMobileMenu()">推荐</a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Home Page -->
+        <section class="page active" id="homePage">
+            <!-- Hero -->
+            <div class="hero">
+                <div class="hero-bg"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title">发现完美拍照姿势</h1>
+                    <p class="hero-subtitle">上传、收藏、推荐你喜欢的拍照姿势</p>
+                    <div class="hero-tags" id="heroTags">
+                        <span class="tag" onclick="filterByTag('all')">全部</span>
+                        <span class="tag" onclick="filterByTag('全身')">全身</span>
+                        <span class="tag" onclick="filterByTag('半身')">半身</span>
+                        <span class="tag" onclick="filterByTag('面部')">面部</span>
+                        <span class="tag" onclick="filterByTag('手势')">手势</span>
+                        <span class="tag" onclick="filterByTag('情侣')">情侣</span>
+                        <span class="tag" onclick="filterByTag('闺蜜')">闺蜜</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <button class="filter-btn active" data-category="all" onclick="filterCategory('all')">全部</button>
+                <button class="filter-btn" data-category="全身" onclick="filterCategory('全身')">全身</button>
+                <button class="filter-btn" data-category="半身" onclick="filterCategory('半身')">半身</button>
+                <button class="filter-btn" data-category="面部" onclick="filterCategory('面部')">面部</button>
+                <button class="filter-btn" data-category="手势" onclick="filterCategory('手势')">手势</button>
+                <button class="filter-btn" data-category="情侣" onclick="filterCategory('情侣')">情侣</button>
+                <button class="filter-btn" data-category="闺蜜" onclick="filterCategory('闺蜜')">闺蜜</button>
+            </div>
+
+            <!-- Pose Grid -->
+            <div class="pose-grid" id="poseGrid">
+                <!-- Poses will be rendered here -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-icon">📷</div>
+                <h3>暂无姿势</h3>
+                <p>上传你的第一个拍照姿势吧</p>
+                <button class="btn btn-primary" onclick="navigate('upload')">上传姿势</button>
+            </div>
+        </section>
+
+        <!-- Upload Page -->
+        <section class="page" id="uploadPage">
+            <div class="upload-container">
+                <h2 class="page-title">上传新姿势</h2>
+                <form class="upload-form" id="uploadForm" onsubmit="handleUpload(event)">
+                    <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+                        <input type="file" id="fileInput" accept="image/*" onchange="handleFileSelect(event)" hidden>
+                        <div class="upload-placeholder" id="uploadPlaceholder">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <p>点击或拖拽图片到这里</p>
+                            <span>支持 JPG、PNG 格式</span>
+                        </div>
+                        <div class="upload-preview" id="uploadPreview" style="display: none;">
+                            <img id="previewImage" src="" alt="预览">
+                            <button type="button" class="remove-preview" onclick="removePreview(event)">×</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">标题</label>
+                        <input type="text" class="form-input" id="poseTitle" placeholder="给姿势起个名字" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">标签</label>
+                        <div class="tag-selector">
+                            <label class="tag-option">
+                                <input type="checkbox" name="tags" value="全身">
+                                <span class="tag-badge">全身</span>
+                            </label>
+                            <label class="tag-option">
+                                <input type="checkbox" name="tags" value="半身">
+                                <span class="tag-badge">半身</span>
+                            </label>
+                            <label class="tag-option">
+                                <input type="checkbox" name="tags" value="面部">
+                                <span class="tag-badge">面部</span>
+                            </label>
+                            <label class="tag-option">
+                                <input type="checkbox" name="tags" value="手势">
+                                <span class="tag-badge">手势</span>
+                            </label>
+                            <label class="tag-option">
+                                <input type="checkbox" name="tags" value="情侣">
+                                <span class="tag-badge">情侣</span>
+                            </label>
+                            <label class="tag-option">
+                                <input type="checkbox" name="tags" value="闺蜜">
+                                <span class="tag-badge">闺蜜</span>
+                            </label>
+                            <label class="tag-option">
+                                <input type="checkbox" name="tags" value="单人">
+                                <span class="tag-badge">单人</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">描述 (可选)</label>
+                        <textarea class="form-textarea" id="poseDescription" placeholder="描述这个姿势的要点..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span class="btn-text">发布姿势</span>
+                        <span class="btn-loading" style="display: none;">发布中...</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Favorites Page -->
+        <section class="page" id="favoritesPage">
+            <div class="favorites-container">
+                <h2 class="page-title">我的收藏</h2>
+                <div class="pose-grid" id="favoritesGrid">
+                    <!-- Favorite poses will be rendered here -->
+                </div>
+                <div class="empty-state" id="favoritesEmpty" style="display: none;">
+                    <div class="empty-icon">❤️</div>
+                    <h3>还没有收藏</h3>
+                    <p>去发现喜欢的姿势吧</p>
+                    <button class="btn btn-primary" onclick="navigate('home')">浏览姿势</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommend Page -->
+        <section class="page" id="recommendPage">
+            <div class="recommend-container">
+                <h2 class="page-title">热门推荐</h2>
+                
+                <!-- Daily Pick -->
+                <div class="daily-pick">
+                    <h3 class="section-title">
+                        <span class="title-icon">✨</span>
+                        今日精选
+                    </h3>
+                    <div class="daily-card" id="dailyCard">
+                        <!-- Daily recommendation -->
+                    </div>
+                </div>
+
+                <!-- Popular Poses -->
+                <div class="popular-section">
+                    <h3 class="section-title">
+                        <span class="title-icon">🔥</span>
+                        热门姿势
+                    </h3>
+                    <div class="pose-grid" id="popularGrid">
+                        <!-- Popular poses -->
+                    </div>
+                </div>
+
+                <!-- For You -->
+                <div class="foryou-section">
+                    <h3 class="section-title">
+                        <span class="title-icon">💫</span>
+                        猜你喜欢
+                    </h3>
+                    <div class="pose-grid" id="foryouGrid">
+                        <!-- Personalized recommendations -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        <img class="lightbox-image" id="lightboxImage" src="" alt="">
+        <div class="lightbox-info">
+            <h3 id="lightboxTitle"></h3>
+            <p id="lightboxDesc"></p>
+            <div class="lightbox-tags" id="lightboxTags"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-message"></span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 PoseVault. 用 ❤️ 做分享</p>
+            <a href="https://github.com" target="_blank" class="footer-link">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+            </a>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
