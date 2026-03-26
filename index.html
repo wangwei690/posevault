@@ -110,7 +110,7 @@
                 <h2 class="page-title">上传新姿势</h2>
                 <form class="upload-form" id="uploadForm" onsubmit="handleUpload(event)">
                     <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
-                        <input type="file" id="fileInput" accept="image/*" onchange="handleFileSelect(event)" hidden>
+                        <input type="file" id="fileInput" accept="image/*" onchange="handleFileSelect(event)" style="display: none;">
                         <div class="upload-placeholder" id="uploadPlaceholder">
                             <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -135,7 +135,7 @@
                         <label class="form-label">标签</label>
                         <div class="tag-selector">
                             <label class="tag-option">
-                                <input type="checkbox" name="tags" value="全身">
+                                <input type="checkbox" name="tags" value="全身" checked>
                                 <span class="tag-badge">全身</span>
                             </label>
                             <label class="tag-option">
