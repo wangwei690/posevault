@@ -7,7 +7,7 @@ const defaultPoses = [
     {
         id: 1,
         title: "新中式国风",
-        image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80",
+        image: "https://images.pexels.com/photos/16886486/pexels-photo-16886486/free-photo-of-a-woman-in-traditional-chinese-dress.jpeg?w=600&q=80",
         tags: ["全身", "国风"],
         description: "身穿新中式服装，侧身站立，手持折扇或团扇，温婉优雅",
         likes: 528,
@@ -16,7 +16,7 @@ const defaultPoses = [
     {
         id: 2,
         title: "汉服侧颜",
-        image: "https://images.unsplash.com/photo-1523294557-3637e1a75166?w=600&q=80",
+        image: "https://images.pexels.com/photos/20848330/pexels-photo-20848330/free-photo-of-a-woman-in-hanfu.jpeg?w=600&q=80",
         tags: ["面部", "国风", "汉服"],
         description: "汉服造型，侧颜出镜，发簪耳环点缀，古典韵味十足",
         likes: 456,
@@ -25,7 +25,7 @@ const defaultPoses = [
     {
         id: 3,
         title: "闺蜜汉服",
-        image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80",
+        image: "https://images.pexels.com/photos/13018138/pexels-photo-13018138/free-photo-of-women-in-traditional-dresses.jpeg?w=600&q=80",
         tags: ["闺蜜", "国风", "全身"],
         description: "和闺蜜一起穿汉服，手执团扇或油纸伞，古风满满",
         likes: 389,
@@ -34,7 +34,7 @@ const defaultPoses = [
     {
         id: 4,
         title: "旗袍气质",
-        image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80",
+        image: "https://images.pexels.com/photos/3094835/pexels-photo-3094835.jpeg?w=600&q=80",
         tags: ["全身", "旗袍", "气质"],
         description: "一袭旗袍，侧身站立或坐姿，展现东方女性韵味",
         likes: 612,
@@ -43,7 +43,7 @@ const defaultPoses = [
     {
         id: 5,
         title: "丸子头甜妹",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80",
+        image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=600&q=80",
         tags: ["面部", "甜美", "半身"],
         description: "高丸子头，元气满满，歪头比耶，活泼可爱",
         likes: 723,
@@ -51,17 +51,17 @@ const defaultPoses = [
     },
     {
         id: 6,
-        title: "新中式拿伞",
-        image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&q=80",
+        title: "古风撑伞",
+        image: "https://images.pexels.com/photos/15892886/pexels-photo-15892886/free-photo-of-a-woman-holding-an-umbrella.jpeg?w=600&q=80",
         tags: ["全身", "国风", "道具"],
-        description: "手持油纸伞或现代透明伞，身穿新中式服装，氛围感拉满",
+        description: "手持油纸伞，身穿汉服或新中式，氛围感拉满",
         likes: 445,
         createdAt: Date.now() - 86400000 * 6
     },
     {
         id: 7,
         title: "氛围感侧躺",
-        image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80",
+        image: "https://images.pexels.com/photos/3755707/pexels-photo-3755707.jpeg?w=600&q=80",
         tags: ["全身", "氛围感", "室内"],
         description: "侧躺在沙发或床上，手托腮或玩头发，慵懒又高级",
         likes: 567,
@@ -70,7 +70,7 @@ const defaultPoses = [
     {
         id: 8,
         title: "对镜自拍",
-        image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80",
+        image: "https://images.pexels.com/photos/4225205/pexels-photo-4225205.jpeg?w=600&q=80",
         tags: ["全身", "自拍", "日常"],
         description: "对镜自拍，展示今日穿搭或妆容，自然又真实",
         likes: 834,
@@ -79,7 +79,7 @@ const defaultPoses = [
     {
         id: 9,
         title: "楼梯俯拍",
-        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80",
+        image: "https://images.pexels.com/photos/3764645/pexels-photo-3764645.jpeg?w=600&q=80",
         tags: ["全身", "楼梯", "高级感"],
         description: "坐在楼梯上从上往下拍，显瘦又显腿长，秒变大长腿",
         likes: 678,
@@ -88,7 +88,7 @@ const defaultPoses = [
     {
         id: 10,
         title: "手托腮微笑",
-        image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80",
+        image: "https://images.pexels.com/photos/3332032/pexels-photo-3332032.jpeg?w=600&q=80",
         tags: ["面部", "半身", "手势"],
         description: "单手托腮，歪头微笑，最经典的甜妹姿势",
         likes: 892,
@@ -97,7 +97,7 @@ const defaultPoses = [
     {
         id: 11,
         title: "情侣互动",
-        image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&q=80",
+        image: "https://images.pexels.com/photos/2603521/pexels-photo-2603521.jpeg?w=600&q=80",
         tags: ["情侣", "全身", "甜蜜"],
         description: "男生从背后拥住女生，或一起比心，甜蜜满分",
         likes: 756,
@@ -106,7 +106,7 @@ const defaultPoses = [
     {
         id: 12,
         title: "宿舍闺蜜照",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80",
+        image: "https://images.pexels.com/photos/3772509/pexels-photo-3772509.jpeg?w=600&q=80",
         tags: ["闺蜜", "全身", "日常"],
         description: "在宿舍或房间内互动，躺在床上或坐着聊天，轻松自然",
         likes: 423,
@@ -115,7 +115,7 @@ const defaultPoses = [
     {
         id: 13,
         title: "低头浅笑",
-        image: "https://images.unsplash.com/photo-1523294557-3637e1a75166?w=600&q=80",
+        image: "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?w=600&q=80",
         tags: ["面部", "半身", "气质"],
         description: "微微低头，露出腼腆微笑，温柔又含蓄",
         likes: 534,
@@ -124,7 +124,7 @@ const defaultPoses = [
     {
         id: 14,
         title: "探店打卡",
-        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80",
+        image: "https://images.pexels.com/photos/3056655/pexels-photo-3056655.jpeg?w=600&q=80",
         tags: ["全身", "探店", "日常"],
         description: "在咖啡店或网红店手持饮品出镜，氛围感满满",
         likes: 645,
@@ -133,7 +133,7 @@ const defaultPoses = [
     {
         id: 15,
         title: "比耶元气",
-        image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80",
+        image: "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?w=600&q=80",
         tags: ["手势", "全身", "活泼"],
         description: "双手比耶或单手比耶，元气满满的笑容",
         likes: 987,
@@ -142,7 +142,7 @@ const defaultPoses = [
     {
         id: 16,
         title: "ootd站立",
-        image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80",
+        image: "https://images.pexels.com/photos/1987301/pexels-photo-1987301.jpeg?w=600&q=80",
         tags: ["全身", "穿搭", "日常"],
         description: "自然站立展示今日穿搭，一只手可以叉腰或放在口袋",
         likes: 456,
