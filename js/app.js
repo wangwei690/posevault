@@ -2,115 +2,151 @@
 // PoseVault - 拍照姿势库 JavaScript
 // ========================================
 
-// Default poses data (sample data)
+// Default poses data (sample data) - 适合中国人的拍照姿势
 const defaultPoses = [
     {
         id: 1,
-        title: "回眸浅笑",
-        image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&q=80",
-        tags: ["面部", "半身"],
-        description: "轻轻回头，露出甜美微笑，自然又动人",
-        likes: 128,
-        createdAt: Date.now() - 86400000 * 3
+        title: "新中式国风",
+        image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80",
+        tags: ["全身", "国风"],
+        description: "身穿新中式服装，侧身站立，手持折扇或团扇，温婉优雅",
+        likes: 528,
+        createdAt: Date.now() - 86400000 * 1
     },
     {
         id: 2,
-        title: "双手比心",
-        image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80",
-        tags: ["手势", "全身"],
-        description: "双手放在胸前比心，少女感十足",
-        likes: 256,
+        title: "汉服侧颜",
+        image: "https://images.unsplash.com/photo-1523294557-3637e1a75166?w=600&q=80",
+        tags: ["面部", "国风", "汉服"],
+        description: "汉服造型，侧颜出镜，发簪耳环点缀，古典韵味十足",
+        likes: 456,
         createdAt: Date.now() - 86400000 * 2
     },
     {
         id: 3,
-        title: "侧身站立",
-        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80",
-        tags: ["全身", "单人"],
-        description: "侧身站立，一条腿微曲，简约高级",
-        likes: 189,
-        createdAt: Date.now() - 86400000 * 1
+        title: "闺蜜汉服",
+        image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80",
+        tags: ["闺蜜", "国风", "全身"],
+        description: "和闺蜜一起穿汉服，手执团扇或油纸伞，古风满满",
+        likes: 389,
+        createdAt: Date.now() - 86400000 * 3
     },
     {
         id: 4,
-        title: "闺蜜背影",
-        image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80",
-        tags: ["闺蜜", "全身"],
-        description: "和闺蜜一起背对镜头，默契十足",
-        likes: 312,
-        createdAt: Date.now() - 86400000 * 5
-    },
-    {
-        id: 5,
-        title: "男友视角",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80",
-        tags: ["面部", "半身"],
-        description: "假装不经意看镜头，营造男友视角感",
-        likes: 445,
+        title: "旗袍气质",
+        image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80",
+        tags: ["全身", "旗袍", "气质"],
+        description: "一袭旗袍，侧身站立或坐姿，展现东方女性韵味",
+        likes: 612,
         createdAt: Date.now() - 86400000 * 4
     },
     {
+        id: 5,
+        title: "丸子头甜妹",
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80",
+        tags: ["面部", "甜美", "半身"],
+        description: "高丸子头，元气满满，歪头比耶，活泼可爱",
+        likes: 723,
+        createdAt: Date.now() - 86400000 * 5
+    },
+    {
         id: 6,
-        title: "情侣牵手",
-        image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&q=80",
-        tags: ["情侣", "全身"],
-        description: "十指紧扣，画面甜蜜温馨",
-        likes: 523,
+        title: "新中式拿伞",
+        image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&q=80",
+        tags: ["全身", "国风", "道具"],
+        description: "手持油纸伞或现代透明伞，身穿新中式服装，氛围感拉满",
+        likes: 445,
         createdAt: Date.now() - 86400000 * 6
     },
     {
         id: 7,
-        title: "侧颜杀手",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80",
-        tags: ["面部", "半身"],
-        description: "完美的侧颜线条，优雅又高级",
-        likes: 378,
+        title: "氛围感侧躺",
+        image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80",
+        tags: ["全身", "氛围感", "室内"],
+        description: "侧躺在沙发或床上，手托腮或玩头发，慵懒又高级",
+        likes: 567,
         createdAt: Date.now() - 86400000 * 7
     },
     {
         id: 8,
-        title: "ootd站姿",
+        title: "对镜自拍",
         image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80",
-        tags: ["全身", "单人"],
-        description: "自然站立展示今日穿搭，简约大方",
-        likes: 267,
+        tags: ["全身", "自拍", "日常"],
+        description: "对镜自拍，展示今日穿搭或妆容，自然又真实",
+        likes: 834,
         createdAt: Date.now() - 86400000 * 8
     },
     {
         id: 9,
-        title: "挡脸可爱",
-        image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80",
-        tags: ["手势", "面部"],
-        description: "用手指挡住半张脸，俏皮可爱",
-        likes: 198,
+        title: "楼梯俯拍",
+        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80",
+        tags: ["全身", "楼梯", "高级感"],
+        description: "坐在楼梯上从上往下拍，显瘦又显腿长，秒变大长腿",
+        likes: 678,
         createdAt: Date.now() - 86400000 * 9
     },
     {
         id: 10,
-        title: "万能坐姿",
-        image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=600&q=80",
-        tags: ["全身", "单人"],
-        description: "席地而坐，双腿自然放松",
-        likes: 342,
+        title: "手托腮微笑",
+        image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80",
+        tags: ["面部", "半身", "手势"],
+        description: "单手托腮，歪头微笑，最经典的甜妹姿势",
+        likes: 892,
         createdAt: Date.now() - 86400000 * 10
     },
     {
         id: 11,
-        title: "对镜自拍",
-        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80",
-        tags: ["全身", "单人"],
-        description: "对镜自拍，展示穿搭或妆容",
-        likes: 289,
+        title: "情侣互动",
+        image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&q=80",
+        tags: ["情侣", "全身", "甜蜜"],
+        description: "男生从背后拥住女生，或一起比心，甜蜜满分",
+        likes: 756,
         createdAt: Date.now() - 86400000 * 11
     },
     {
         id: 12,
-        title: "低头浅笑",
-        image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80",
-        tags: ["面部", "半身"],
-        description: "微微低头，笑容含蓄优雅",
-        likes: 156,
+        title: "宿舍闺蜜照",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80",
+        tags: ["闺蜜", "全身", "日常"],
+        description: "在宿舍或房间内互动，躺在床上或坐着聊天，轻松自然",
+        likes: 423,
         createdAt: Date.now() - 86400000 * 12
+    },
+    {
+        id: 13,
+        title: "低头浅笑",
+        image: "https://images.unsplash.com/photo-1523294557-3637e1a75166?w=600&q=80",
+        tags: ["面部", "半身", "气质"],
+        description: "微微低头，露出腼腆微笑，温柔又含蓄",
+        likes: 534,
+        createdAt: Date.now() - 86400000 * 13
+    },
+    {
+        id: 14,
+        title: "探店打卡",
+        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80",
+        tags: ["全身", "探店", "日常"],
+        description: "在咖啡店或网红店手持饮品出镜，氛围感满满",
+        likes: 645,
+        createdAt: Date.now() - 86400000 * 14
+    },
+    {
+        id: 15,
+        title: "比耶元气",
+        image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80",
+        tags: ["手势", "全身", "活泼"],
+        description: "双手比耶或单手比耶，元气满满的笑容",
+        likes: 987,
+        createdAt: Date.now() - 86400000 * 15
+    },
+    {
+        id: 16,
+        title: "ootd站立",
+        image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80",
+        tags: ["全身", "穿搭", "日常"],
+        description: "自然站立展示今日穿搭，一只手可以叉腰或放在口袋",
+        likes: 456,
+        createdAt: Date.now() - 86400000 * 16
     }
 ];
 
