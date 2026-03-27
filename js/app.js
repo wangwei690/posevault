@@ -372,6 +372,26 @@ let favorites = [];
 let currentCategory = 'all';
 let currentSearch = '';
 let uploadedImage = null;
+let currentPoseId = null;
+
+// Comments and Ratings storage
+function getComments(poseId) {
+    const comments = localStorage.getItem(`posevault_comments_${poseId}`);
+    return comments ? JSON.parse(comments) : [];
+}
+
+function saveComments(poseId, comments) {
+    localStorage.setItem(`posevault_comments_${poseId}`, JSON.stringify(comments));
+}
+
+function getRatings(poseId) {
+    const ratings = localStorage.getItem(`posevault_ratings_${poseId}`);
+    return ratings ? JSON.parse(ratings) : { total: 0, count: 0 };
+}
+
+function saveRatings(poseId, ratings) {
+    localStorage.setItem(`posevault_ratings_${poseId}`, JSON.stringify(ratings));
+}
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -393,6 +413,14 @@ function initScrollAnimation() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate-in');
+
+                // Lazy load images when card becomes visible
+                const img = entry.target.querySelector('.pose-image');
+                if (img && img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+
                 observer.unobserve(entry.target);
             }
         });
@@ -412,7 +440,7 @@ function refreshScrollAnimation() {
     setTimeout(() => {
         const observerOptions = {
             root: null,
-            rootMargin: '0px',
+            rootMargin: '50px',
             threshold: 0.1
         };
 
@@ -420,6 +448,14 @@ function refreshScrollAnimation() {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate-in');
+
+                    // Lazy load images when card becomes visible
+                    const img = entry.target.querySelector('.pose-image');
+                    if (img && img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+
                     observer.unobserve(entry.target);
                 }
             });
@@ -429,6 +465,17 @@ function refreshScrollAnimation() {
             observer.observe(el);
         });
     }, 100);
+}
+
+// Preload images for faster navigation
+function preloadVisibleImages() {
+    const images = document.querySelectorAll('.pose-image[loading="lazy"]');
+    images.forEach(img => {
+        if (img.complete) return;
+        img.addEventListener('load', () => {
+            img.classList.add('loaded');
+        });
+    });
 }
 
 // Data Management
@@ -788,6 +835,8 @@ function handleUpload(event) {
 function openLightbox(id) {
     const pose = poses.find(p => p.id === id);
     if (!pose) return;
+
+    currentPoseId = id;
     
     const lightbox = document.getElementById('lightbox');
     document.getElementById('lightboxImage').src = pose.image;
@@ -795,8 +844,109 @@ function openLightbox(id) {
     document.getElementById('lightboxDesc').textContent = pose.description || '暂无描述';
     document.getElementById('lightboxTags').innerHTML = pose.tags.map(tag => `<span class="pose-tag">${tag}</span>`).join('');
     
+    // Load ratings
+    renderRating(id);
+    
+    // Load comments
+    renderComments(id);
+    
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+}
+
+// Rating Functions
+function renderRating(poseId) {
+    const ratings = getRatings(poseId);
+    const ratingStars = document.getElementById('ratingStars');
+    const ratingText = document.getElementById('ratingText');
+    
+    const avgRating = ratings.count > 0 ? (ratings.total / ratings.count).toFixed(1) : 0;
+    
+    let starsHtml = '';
+    for (let i = 1; i <= 5; i++) {
+        const active = i <= Math.round(avgRating) ? 'active' : '';
+        starsHtml += `<span class="rating-star ${active}" onclick="ratePose(${poseId}, ${i})">
+            <svg viewBox="0 0 24 24" fill="${i <= Math.round(avgRating) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+        </span>`;
+    }
+    
+    ratingStars.innerHTML = starsHtml;
+    ratingText.textContent = ratings.count > 0 ? `${avgRating} (${ratings.count}人评分)` : '还没有评分';
+}
+
+function ratePose(poseId, rating) {
+    const ratings = getRatings(poseId);
+    ratings.total += rating;
+    ratings.count += 1;
+    saveRatings(poseId, ratings);
+    renderRating(poseId);
+    showToast('评分成功', 'success');
+}
+
+// Comment Functions
+function renderComments(poseId) {
+    const comments = getComments(poseId);
+    const commentsList = document.getElementById('commentsList');
+    const commentsCount = document.getElementById('commentsCount');
+    
+    commentsCount.textContent = comments.length;
+    
+    if (comments.length === 0) {
+        commentsList.innerHTML = '<p class="no-comments">还没有评论，快来抢沙发~</p>';
+        return;
+    }
+    
+    commentsList.innerHTML = comments.map((comment, index) => `
+        <div class="comment-item" style="animation-delay: ${index * 0.05}s">
+            <div class="comment-header">
+                <span class="comment-author">${comment.author}</span>
+                <span class="comment-time">${formatTime(comment.time)}</span>
+            </div>
+            <p class="comment-text">${comment.text}</p>
+        </div>
+    `).join('');
+}
+
+function formatTime(timestamp) {
+    const now = Date.now();
+    const diff = now - timestamp;
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+    
+    if (minutes < 1) return '刚刚';
+    if (minutes < 60) return `${minutes}分钟前`;
+    if (hours < 24) return `${hours}小时前`;
+    if (days < 7) return `${days}天前`;
+    return new Date(timestamp).toLocaleDateString('zh-CN');
+}
+
+function submitComment() {
+    const input = document.getElementById('commentInput');
+    const text = input.value.trim();
+    
+    if (!text) {
+        showToast('请输入评论内容', 'error');
+        return;
+    }
+    
+    if (!currentPoseId) return;
+    
+    const comments = getComments(currentPoseId);
+    const newComment = {
+        author: '匿名用户',
+        text: text,
+        time: Date.now()
+    };
+    
+    comments.unshift(newComment);
+    saveComments(currentPoseId, comments);
+    
+    input.value = '';
+    renderComments(currentPoseId);
+    showToast('评论发布成功', 'success');
 }
 
 function closeLightbox() {
